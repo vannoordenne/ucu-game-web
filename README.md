@@ -123,6 +123,8 @@ This project is open source. Feel free to use, modify, and distribute as you see
 
 Developed by **Marise van Noordenne** for **Studio Dark Tech**.
 
+*This project was pair programmed with Cursor AI - a fitting collaboration for a game exploring the relationship between humans and technology.*
+
 
 ---
 
