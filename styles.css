@@ -1,0 +1,365 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+    --primary-color: #33ff33;
+    --secondary-color: #00cc00;
+    --background-color: #000000;
+    --text-color: #ffffff;
+    --glow-color: rgba(51, 255, 51, 0.4);
+    --scanline-color: rgba(0, 0, 0, 0.4);
+    --scanline-color2: rgba(0, 0, 0, 0.2);
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: 'IBM Plex Mono', monospace;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* CRT Screen Effect - Primary Scan Lines */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        var(--scanline-color) 0px,
+        var(--scanline-color) 2px,
+        transparent 2px,
+        transparent 4px
+    );
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* CRT Screen Effect - Secondary Scan Lines */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        var(--scanline-color2) 0px,
+        var(--scanline-color2) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Screen Glow Effect */
+.game-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        circle at center,
+        var(--glow-color) 0%,
+        transparent 30%
+    );
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Screen Curve Effect */
+.game-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+        circle at center,
+        transparent 0%,
+        rgba(0, 0, 0, 0.3) 100%
+    );
+    pointer-events: none;
+    z-index: 0;
+}
+
+.game-container {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid var(--primary-color);
+    box-shadow: 0 0 40px var(--glow-color);
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.95);
+    transform: perspective(1000px) rotateX(2deg);
+}
+
+/* Screen Flicker Animation */
+@keyframes flicker {
+    0% { opacity: 1; }
+    50% { opacity: 0.95; }
+    100% { opacity: 1; }
+}
+
+@keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+}
+
+.game-container {
+    animation: flicker 0.1s infinite;
+}
+
+/* Moving Scan Line Effect */
+.scanline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: rgba(51, 255, 51, 0.1);
+    animation: scanline 8s linear infinite;
+    pointer-events: none;
+    z-index: 3;
+}
+
+/* Text Glow Effect */
+#game-text, #game-choices, .choices-text, .system-message {
+    color: var(--text-color);
+    text-shadow: 0 0 8px var(--glow-color);
+}
+
+/* Input Field Glow */
+#command-input {
+    color: var(--text-color);
+    box-shadow: 0 0 15px var(--glow-color);
+}
+
+/* Button Hover Effect */
+.choice-button {
+    color: var(--text-color);
+}
+
+.choice-button:hover {
+    color: var(--primary-color);
+    box-shadow: 0 0 25px var(--glow-color);
+    transform: scale(1.02);
+}
+
+#game-title {
+    text-align: center;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px var(--glow-color);
+}
+
+#game-title h1 {
+    font-size: 1.5em;
+    margin: 0;
+    padding: 0;
+}
+
+/* Remove tagline styles */
+.tagline {
+    display: none;
+}
+
+#game-content {
+    min-height: 300px;
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid var(--primary-color);
+    position: relative;
+    overflow-y: auto;
+    max-height: 60vh;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+#game-text {
+    margin-bottom: 20px;
+    white-space: pre-wrap;
+    text-shadow: 0 0 5px var(--glow-color);
+}
+
+#game-choices {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.choices-text {
+    margin: 20px 0;
+    white-space: pre-wrap;
+    line-height: 1.8;
+    text-shadow: 0 0 5px var(--glow-color);
+}
+
+.command-input-container {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid var(--primary-color);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.prompt {
+    color: var(--primary-color);
+    margin-right: 10px;
+    font-weight: bold;
+    text-shadow: 0 0 5px var(--glow-color);
+}
+
+#command-input {
+    background-color: transparent;
+    border: none;
+    color: var(--primary-color);
+    font-family: 'IBM Plex Mono', monospace;
+    flex-grow: 1;
+    outline: none;
+    text-shadow: 0 0 5px var(--glow-color);
+}
+
+#command-input::placeholder {
+    color: var(--secondary-color);
+    opacity: 0.7;
+}
+
+.choice-button {
+    display: block;
+    background-color: transparent;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    font-family: 'IBM Plex Mono', monospace;
+    padding: 10px 20px;
+    margin: 20px auto;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 5px var(--glow-color);
+}
+
+.choice-button:hover {
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    box-shadow: 0 0 20px var(--glow-color);
+}
+
+/* Glitch effect for text */
+@keyframes glitch {
+    0% { text-shadow: 0.05em 0 0 var(--primary-color), -0.05em -0.025em 0 var(--primary-color), -0.025em 0.05em 0 var(--primary-color); }
+    14% { text-shadow: 0.05em 0 0 var(--primary-color), -0.05em -0.025em 0 var(--primary-color), -0.025em 0.05em 0 var(--primary-color); }
+    15% { text-shadow: -0.05em -0.025em 0 var(--primary-color), 0.025em 0.025em 0 var(--primary-color), -0.05em -0.05em 0 var(--primary-color); }
+    49% { text-shadow: -0.05em -0.025em 0 var(--primary-color), 0.025em 0.025em 0 var(--primary-color), -0.05em -0.05em 0 var(--primary-color); }
+    50% { text-shadow: 0.025em 0.05em 0 var(--primary-color), 0.05em 0 0 var(--primary-color), 0 -0.05em 0 var(--primary-color); }
+    99% { text-shadow: 0.025em 0.05em 0 var(--primary-color), 0.05em 0 0 var(--primary-color), 0 -0.05em 0 var(--primary-color); }
+    100% { text-shadow: -0.025em 0 0 var(--primary-color), -0.025em -0.025em 0 var(--primary-color), -0.025em -0.05em 0 var(--primary-color); }
+}
+
+.glitch {
+    animation: glitch 2s infinite;
+}
+
+/* Typewriter effect */
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+.typewriter {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 3.5s steps(40, end);
+}
+
+/* Loading screen */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.loading-text {
+    color: var(--primary-color);
+    font-size: 1.5em;
+    text-align: center;
+    text-shadow: 0 0 10px var(--glow-color);
+}
+
+/* System message styling */
+.system-message {
+    color: var(--primary-color);
+    text-transform: uppercase;
+    font-weight: 500;
+    margin: 10px 0;
+    text-shadow: 0 0 5px var(--glow-color);
+}
+
+.user-input {
+    color: var(--secondary-color);
+    font-style: italic;
+}
+
+/* Epilogue styling */
+.epilogue {
+    line-height: 2;
+    margin-top: 20px;
+}
+
+.epilogue-quote {
+    font-style: italic;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--primary-color);
+}
+
+/* Fade out animation */
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.fade-out {
+    animation: fadeOut 2s forwards;
+}
+
+/* Cursor blink */
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.cursor {
+    display: inline-block;
+    width: 10px;
+    height: 20px;
+    background-color: var(--primary-color);
+    margin-left: 5px;
+    animation: blink 1s infinite;
+    box-shadow: 0 0 5px var(--glow-color);
+} 
