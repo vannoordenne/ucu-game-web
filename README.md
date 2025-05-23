@@ -110,14 +110,6 @@ Each combination explores different aspects of how technology can be misused or 
 2. Open `index.html` in any modern web browser
 3. No server or build process required!
 
-## Contributing
-
-This game is designed to provoke thought and discussion about technology ethics. If you'd like to contribute:
-
-- **New Scenarios**: Suggest additional technology/user combinations
-- **Interface Improvements**: Enhance the CRT aesthetic or add new effects
-- **Accessibility**: Help make the game more accessible to all users
-- **Localization**: Translate the game into other languages
 
 ## Content Warning
 
